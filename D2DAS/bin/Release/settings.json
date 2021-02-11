@@ -1,0 +1,63 @@
+{
+	"AccountID": "",
+	"JWTToken": "",
+	"Hashtags":
+	{
+		"#slowLlama":
+		{
+			"Type": "Speed",
+			"ValueType": "Percentage",
+			"Value": 10,
+			"Effect": "Absolute",
+			"Duration": "10/$1"
+		},
+		"#speedyLlama":
+		{
+			"Type": "Speed",
+			"ValueType": "Percentage",
+			"Value": 200,
+			"Effect": "Relative",
+			"Duration": "10/$1"
+		},
+		"#brokeLlama":
+		{
+			"Type": "Gold",
+			"ValueType": "Percentage",
+			"Value": "-1/$1",
+			"Effect": "Relative",
+			"Duration": 0
+		},
+		"#blingLlama":
+		{
+			"Type": "Gold",
+			"ValueType": "Total",
+			"Value": "100/$1",
+			"Effect": "Relative",
+			"Duration": 0
+		},
+		"#invinciLlama":
+		{
+			"Type": "Health",
+			"ValueType": "Total",
+			"Value": "max",
+			"Effect": "Absolute",
+			"Duration": "10/$1"
+		},
+		"#magicLlama":
+		{
+			"Type": "Mana",
+			"ValueType": "Total",
+			"Value": "max",
+			"Effect": "Absolute",
+			"Duration": "10/$1"
+		},
+		"#weakLlama":
+		{
+			"Type": "Mana",
+			"ValueType": "Total",
+			"Value": 0,
+			"Effect": "Absolute",
+			"Duration": "10/$1"
+		}
+	}
+}

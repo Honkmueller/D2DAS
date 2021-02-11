@@ -1,0 +1,152 @@
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+		<style>
+			@font-face {
+				font-family: 'AvQest';
+				src:  url('AvQest.ttf.woff') format('woff'),
+				url('AvQest.ttf.svg#AvQest') format('svg'),
+				url('AvQest.ttf.eot'),
+				url('AvQest.eot?#iefix') format('embedded-opentype'); 
+				font-weight: normal;
+				font-style: normal;
+			}
+
+			* {
+				margin:0; 
+				padding:0; 
+				border:0; 
+				color:black;
+				font-family: 'AvQest';
+				font-size: 20px;
+			}
+
+			#content {
+				position: absolute;
+			}
+
+			.cell {
+				padding: 1px 3px 1px 3px;
+				font-size: 15px;
+				width: 55px;
+			}
+
+			ul {
+				list-style-type: none;
+			}
+
+			li {
+				color: grey;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="content">
+			<table>
+				<tr>
+					<th class="cell">Health</th>
+					<th class="cell">Mana</th>
+					<th class="cell">Gold</th>
+					<th class="cell">Speed</th>
+				</tr>
+				<tr>
+					<td id="current-health" class="cell">-</td>
+					<td id="current-mana" class="cell">-</td>
+					<td id="current-gold" class="cell">-</td>
+					<td id="current-speed" class="cell">-</td>
+				</tr>
+				<tr>
+					<td class="cell next">
+						<ul id="queued-health">
+							<li>-</li>
+						</ul>
+					</td>
+					<td class="cell next">
+						<ul id="queued-mana">
+							<li>-</li>
+						</ul>
+					</td>
+					<td class="cell next">
+						<ul id="queued-gold">
+							<li>-</li>
+						</ul>
+					</td>
+					<td class="cell next">
+						<ul id="queued-speed">
+							<li>-</li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<script>
+			var t = setInterval(reloadData,1000);
+
+			function reloadData()
+			{
+				$.getJSON("buffState.json", function(data){
+					$('#current-health').html(convertData(data.CurrentBuffs.Health));
+					$('#current-mana').html(convertData(data.CurrentBuffs.Mana));
+					$('#current-gold').html(convertData(data.CurrentBuffs.Gold));
+					$('#current-speed').html(convertData(data.CurrentBuffs.Speed));
+
+					
+					$('#queued-health').html(getQueuedList(data.BuffQueue.Health));
+					$('#queued-mana').html(getQueuedList(data.BuffQueue.Mana));
+					$('#queued-gold').html(getQueuedList(data.BuffQueue.Gold));
+					$('#queued-speed').html(getQueuedList(data.BuffQueue.Speed));
+				});
+			}
+
+			function convertData(data, useTotal)
+			{
+				var text = "-";
+				if (data)
+				{
+					text = "";
+					if (data.Effect == 0)
+					{
+						text += data.Value>=0?"+":"";
+					}
+					text += data.Value;
+					if (data.ValueType == 1)
+					{
+						text += "%";
+					}
+
+					var timeLeft = data.DurationLeft / 1000;
+					
+					if (useTotal)
+					{
+						timeLeft = data.Duration / 1000;
+					}
+
+					timeLeft = Math.floor(timeLeft);
+
+					if (timeLeft < 0)
+					{
+						timeLeft = 0;
+					}
+
+					text += " (" + timeLeft + "s)";
+				}
+				return text;
+			}
+
+			function getQueuedList(data)
+			{
+				var html = "";
+				for (var i = 0; i < data.length; i++)
+				{
+					html += "<li>";
+					html += convertData(data[i]);
+					html += "</li>";
+				}
+				return html;
+			}
+
+		</script>
+	</body>
+</html>

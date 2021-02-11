@@ -1,0 +1,1 @@
+{"BuffQueue":{"Health":[],"Mana":[],"Gold":[],"Speed":[{"ID":1,"Type":0,"Effect":0,"ValueType":1,"Value":200,"Duration":50000.0,"BaseValue":-1,"DurationLeft":50000.0}]},"CurrentBuffs":{"Health":null,"Mana":null,"Gold":null,"Speed":{"ID":0,"Type":0,"Effect":1,"ValueType":1,"Value":10,"Duration":50000.0,"BaseValue":-1,"DurationLeft":30032.0}}}
